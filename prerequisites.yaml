@@ -1,0 +1,12 @@
+name: reexport-env
+dependencies:
+  - python=2.7   # or 2.7
+  - pandas
+  - numpy
+  - hdf5
+  - ipython
+  - dill
+  - scipy
+  - pip:
+    - h5py
+    - tensorflow==2.0.0-beta1
