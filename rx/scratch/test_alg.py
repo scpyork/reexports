@@ -23,7 +23,7 @@ def zeronan(x):
 
 print ('---------------------------------')
 
-#@tf.function
+@tf.function
 def rxp(DS,E,Pd,N=1000):
     debug = {}
     DS = tf.add(DS,Pd)
@@ -43,8 +43,7 @@ def rxp(DS,E,Pd,N=1000):
 
     return DS,debug
 
-#@tf.function
-def setup(Pd,E,N=1000):
+def setup(Pd,E,N):
     '''
         The re-export alogrithm
 
@@ -79,6 +78,24 @@ def setup(Pd,E,N=1000):
     #for _ in tf.range(1,N):
 
 
+#@tf.function
+def rxpt(Pd, E, N = 10000):
+
+    DS,E,Pd = setup(Pd,E,N)
+    overexport = []
+    for _ in range(1,N+1):
+        DS,debug = rxp(DS,E,Pd)
+        overexport.append(debug['overexport'])
+
+    print DS
+
+
+    check = sum( tf.reduce_sum(DS,axis=1) - tf.linalg.diag_part(Pd)*N )
+
+    print (tf.reduce_sum(DS,axis=1))
+    print ('')
+    print ('Difference from production: %.2e \nPassed: %s'%(check,np.array(check<1e-8)) )
+
 
 
 
@@ -104,19 +121,7 @@ if __name__ == '__main__':
 
     print ('---------------------------------')
 
-    N = 10000
-
-    DS,E,Pd = setup(Pd,E,N)
-    overexport = []
-    for _ in range(1,N+1):
-        DS,debug = rxp(DS,E,Pd)
-        overexport.append(debug['overexport'])
-
-
-    #    if int(_%100) ==0 : print DS
-    print DS
-    #reexport(Pd,E,10)
-
+    rxpt(Pd,E)
 
 '''
 array([[721.48846,   0.     , 278.50928],
