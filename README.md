@@ -5,7 +5,7 @@ https://github.com/scpyork/reexports/wiki
 
 ## Example usage of the class:
 
-python ```
+``` python
 
 import rx
 import numpy as np
