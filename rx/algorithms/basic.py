@@ -77,7 +77,7 @@ class reexport:
         '''
         # zero DS to avoid mistakes
         DS = self.DS*0
-        for _ in range(1,self.N+2):
+        for _ in range(1,self.N+1):
             DS = self.algorithm(DS)
         self.DS = DS
         self.check()

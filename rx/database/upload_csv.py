@@ -9,7 +9,12 @@ Arguments:
 '''
 import sys
 import pandas as pd
-df = pd.read_csv(sys.argv[1], encoding='latin-1')
+try:
+    df = pd.read_csv(sys.argv[1], encoding='latin-1')
+except Exception as e:
+    print( 'Check file permissions')
+    print (e)
+
 
 try: exists = sys.argv[3]#append
 except: exists = 'fail'
